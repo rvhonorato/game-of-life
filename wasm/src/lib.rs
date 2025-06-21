@@ -30,6 +30,7 @@ pub struct Universe {
 #[wasm_bindgen]
 #[allow(clippy::new_without_default)]
 impl Universe {
+    #[wasm_bindgen(constructor)]
     pub fn new() -> Universe {
         let width = 64;
         let height = 64;
@@ -56,6 +57,10 @@ impl Universe {
     }
 
     pub fn tick(&mut self) {
+        if self.cells.is_empty() {
+            return; // Handle empty universe
+        }
+
         let mut next = self.cells.clone();
 
         for row in 0..self.height {
@@ -65,30 +70,25 @@ impl Universe {
                 let live = self.live_neighbor_count(row, col);
 
                 let next_cell = match (cell, live) {
-                    // Rule 1: Any live cell with fewer than two live neighbours
-                    // dies, as if caused by underpopulation.
                     (Cell::Alive, x) if x < 2 => Cell::Dead,
-                    // Rule 2: Any live cell with two or three live neighbours
-                    // lives on to the next generation.
                     (Cell::Alive, 2) | (Cell::Alive, 3) => Cell::Alive,
-                    // Rule 3: Any live cell with more than three live
-                    // neighbours dies, as if by overpopulation.
                     (Cell::Alive, x) if x > 3 => Cell::Dead,
-                    // Rule 4: Any dead cell with exactly three live neighbours
-                    // becomes a live cell, as if by reproduction.
                     (Cell::Dead, 3) => Cell::Alive,
-                    // All other cells remain in the same state.
                     (otherwise, _) => otherwise,
                 };
-
                 next[idx] = next_cell;
             }
         }
-        self.cells = next
+
+        self.cells = next;
     }
-    // <https://rustwasm.github.io/docs/book/game-of-life/implementing.html#interfacing-rust-and-javascript-in-our-game-of-life>
+
     fn get_index(&self, row: u32, column: u32) -> usize {
-        (row * self.width + column) as usize
+        let index = (row * self.width + column) as usize;
+        if index >= self.cells.len() {
+            panic!("Index out of bounds: {} >= {}", index, self.cells.len());
+        }
+        index
     }
 
     // Calculate the next state  of a given cell
