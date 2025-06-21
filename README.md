@@ -1,7 +1,8 @@
 # Conway's Game of Life
 
-This repository is an implementation of the game of life as a React web-app
-that uses Rust (+ WebAssembly) as the game engine.
+This repository is an implementation of
+[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+as a React web-app that uses Rust (+ WebAssembly) as the game engine.
 
 To see it in action: [rvhonorato.me/game-of-life](https://rvhonorato.me/game-of-life)
 
