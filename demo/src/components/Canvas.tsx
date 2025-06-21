@@ -5,7 +5,7 @@ export const Canvas = () => {
   const [canvas, setCanvas] = useState<string>("");
   const [universe, setUniverse] = useState<Universe | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Initialize the universe
   useEffect(() => {
