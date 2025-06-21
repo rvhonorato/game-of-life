@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run build:wasm && vite",
     "build": "tsc -b && vite build",
+    "build:wasm": "cd ../wasm && wasm-pack build --target web && cd ../demo && npm i ../wasm/pkg",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "game-of-life": "file:../wasm/pkg",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "wasm-game-of-life": "file:../wasm/pkg"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
