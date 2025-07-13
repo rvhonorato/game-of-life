@@ -53,14 +53,24 @@ export const Canvas = () => {
   }, []);
 
   return (
-    <>
-      <button onClick={handlePlayPause} disabled={!universe}>
-        {isPlaying ? "Pause" : "Play"}
-      </button>
-      <button onClick={handleTick} disabled={!universe || isPlaying}>
-        Tick
-      </button>
-      <pre>{canvas}</pre>
-    </>
+    <div className="flex flex-col items-center gap-6">
+      <div className="flex gap-4">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+          onClick={handlePlayPause}
+          disabled={!universe}
+        >
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+        <button
+          className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-300"
+          onClick={handleTick}
+          disabled={!universe || isPlaying}
+        >
+          Tick
+        </button>
+      </div>
+      <pre className="bg-white p-4 rounded shadow">{canvas}</pre>
+    </div>
   );
 };
