@@ -3,7 +3,7 @@
 A modern implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) built with **Rust + WebAssembly** for high-performance computation and **React + TypeScript** for the interactive UI.
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success)](https://rvhonorato.me/game-of-life)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](./LICENSE)
 
 **[🚀 Live Demo](https://rvhonorato.me/game-of-life)**
 
@@ -164,7 +164,7 @@ Contributions are welcome! This is primarily a learning project, so feel free to
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This is free and unencumbered software released into the public domain. See the [LICENSE](./LICENSE) file for details.
 
 ---
 
