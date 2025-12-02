@@ -1,178 +1,66 @@
-# 🎮 Conway's Game of Life
+# Conway's Game of Life
 
-A modern implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) built with **Rust + WebAssembly** for high-performance computation and **React + TypeScript** for the interactive UI.
+An implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) with the game logic written in Rust and compiled to WebAssembly, and a React + TypeScript frontend.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://rvhonorato.me/game-of-life)
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](./LICENSE)
+[Live demo](https://rvhonorato.me/game-of-life)
 
-**[🚀 Live Demo](https://rvhonorato.me/game-of-life)**
+## What it does
 
----
+The game runs on a 64×64 toroidal grid (wraps around at the edges) with standard Conway rules. The universe starts with a random configuration, and you can play/pause the simulation or step through it one generation at a time. The rendering is done with Unicode characters (⬜/⬛).
 
-## 🌟 Features
+## Architecture
 
-- **High Performance**: Game logic implemented in Rust, compiled to WebAssembly
-- **Interactive Controls**: Play, pause, and step through generations
-- **Randomized Start**: Each simulation begins with a unique random configuration
-- **Toroidal Grid**: Universe wraps around edges (64×64 cells)
-- **Modern Stack**: React 19, TypeScript, Vite, Tailwind CSS
+The project is split into two parts:
 
----
+- `wasm/` - Rust code that implements the game logic (Universe struct, Cell enum, Conway's rules). This gets compiled to WebAssembly using wasm-pack.
+- `demo/` - React frontend that loads the WASM module, manages the game state, and handles the UI controls.
 
-## 🏗️ Architecture
+The Rust code exposes a `Universe` class to JavaScript via wasm-bindgen. The React component initializes it asynchronously, then calls `tick()` to advance generations and `render()` to get the string representation.
 
-```
-┌─────────────────────────────────────┐
-│  React + TypeScript (Frontend)     │
-│  • UI Controls (play/pause/tick)   │
-│  • State management                 │
-│  • Rendering                        │
-└──────────────┬──────────────────────┘
-               │ wasm-bindgen
-┌──────────────▼──────────────────────┐
-│  Rust + WASM (Game Engine)         │
-│  • Universe struct                  │
-│  • Conway's rules implementation    │
-│  • Cell state management            │
-└─────────────────────────────────────┘
-```
+## Getting started
 
-### Project Structure
-
-```
-game-of-life/
-├── wasm/              # Rust/WASM game engine
-│   ├── src/
-│   │   ├── lib.rs     # Core game logic
-│   │   └── utils.rs   # Utilities
-│   └── Cargo.toml
-├── demo/              # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   └── package.json
-└── .github/workflows/ # CI/CD for deployment
-```
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- [Rust](https://www.rust-lang.org/tools/install) (latest stable)
-- [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
-- [Node.js](https://nodejs.org/) (v20+) and npm
-
-### Installation & Running
+You'll need Rust (latest stable), [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/), and Node.js (v20+).
 
 ```bash
-# Clone the repository
 git clone https://github.com/rvhonorato/game-of-life
 cd game-of-life/demo
-
-# Install dependencies and start dev server
 npm install
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`
+This will build the WASM module and start the dev server at `http://localhost:5173`.
 
-### Building for Production
-
-```bash
-# Build both WASM and React app
-npm run build
-
-# Preview production build
-npm run preview
-```
-
----
-
-## 🎯 How It Works
-
-### Conway's Rules
-
-1. Any live cell with 2-3 live neighbors survives
-2. Any dead cell with exactly 3 live neighbors becomes alive
-3. All other cells die or stay dead
-
-### Implementation Details
-
-The Rust engine:
-
-- Maintains a `Vec<Cell>` representing the universe state
-- Computes next generation using Conway's rules
-- Exposes methods to JavaScript via `wasm-bindgen`
-
-The React frontend:
-
-- Initializes the WASM module asynchronously
-- Calls `tick()` to advance generations
-- Renders the universe using Unicode characters (⬜/⬛)
-
----
-
-## 🛠️ Development
-
-### Available Scripts
+## Development
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run build:wasm   # Build only WASM module
+npm run dev          # Start dev server (rebuilds WASM automatically)
+npm run build        # Production build
+npm run build:wasm   # Rebuild just the WASM module
 npm run lint         # Run ESLint
-npm run preview      # Preview production build
 ```
 
-### Testing Rust Code
+For Rust development:
 
 ```bash
 cd wasm
-cargo test
-cargo clippy  # Run linter
+cargo test      # Run tests
+cargo clippy    # Lint
 ```
 
----
+## How it works
 
-## 📚 Learning Resources
+Conway's Game of Life follows three simple rules:
 
-This project is based on the excellent [Rust and WebAssembly Tutorial](https://rustwasm.github.io/docs/book/game-of-life/introduction.html) with additional enhancements.
+1. Live cells with 2-3 neighbors survive
+2. Dead cells with exactly 3 neighbors become alive
+3. Everything else dies or stays dead
 
-**Key concepts demonstrated:**
+The Rust code maintains a `Vec<Cell>` representing the universe and computes each generation. The React component calls `tick()` to advance the simulation and `render()` to get the current state as a string.
 
-- Rust ↔ JavaScript interop via wasm-bindgen
-- WebAssembly memory management
-- Performance optimization with Rust
-- Modern React patterns (hooks, TypeScript)
+## Background
 
-For further improvements and learning paths, see [TODO.md](./TODO.md).
+This started as a way to learn Rust and WebAssembly following the [Rust WASM tutorial](https://rustwasm.github.io/docs/book/game-of-life/introduction.html). I added some improvements and a React frontend to make it more interactive. See [TODO.md](./TODO.md) for ideas on where to take it next (direct memory access, bit packing, SIMD, etc.).
 
----
+## License
 
-## 🤝 Contributing
-
-Contributions are welcome! This is primarily a learning project, so feel free to:
-
-- Report bugs or suggest features via [Issues](https://github.com/rvhonorato/game-of-life/issues)
-- Submit pull requests with improvements
-- Share your own implementations or variations
-
----
-
-## 📄 License
-
-This is free and unencumbered software released into the public domain. See the [LICENSE](./LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- [Rust and WebAssembly Working Group](https://rustwasm.github.io/) for the excellent tutorial
-- [John Conway](https://en.wikipedia.org/wiki/John_Horton_Conway) for creating the Game of Life
-
----
-
-**Made with 🦀 Rust and ⚛️ React**
+Public domain (Unlicense). Do whatever you want with it.
