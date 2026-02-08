@@ -11,7 +11,7 @@ function wasmHotReload(): Plugin {
     name: "wasm-hot-reload",
     configureServer(server) {
       const wasmSrc = path.resolve(__dirname, "../wasm/src");
-      const watcher = server.watcher.add(wasmSrc);
+      server.watcher.add(wasmSrc);
 
       let building = false;
       server.watcher.on("change", async (file) => {
@@ -22,7 +22,7 @@ function wasmHotReload(): Plugin {
           execSync("npm run build:wasm", { cwd: __dirname, stdio: "inherit" });
           server.config.logger.info("WASM rebuild done, reloading...");
           server.restart();
-        } catch (e) {
+        } catch {
           server.config.logger.error("WASM rebuild failed");
         } finally {
           building = false;
