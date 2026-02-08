@@ -1,5 +1,7 @@
 # Conway's Game of Life
 
+![banner](assets/banner.png)
+
 [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) — game logic in Rust compiled to WebAssembly, frontend in React + TypeScript.
 
 **[Live demo](https://rvhonorato.me/game-of-life)**
