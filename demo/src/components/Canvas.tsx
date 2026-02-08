@@ -220,7 +220,7 @@ export const Canvas = () => {
               title="Time for the WASM module to compute one generation. This runs as compiled Rust in your browser."
               className="cursor-help underline decoration-dotted"
             >
-              Step time: {stats.tickSec}μs
+              Step time: <span className="inline-block w-16 text-right" style={{ fontVariantNumeric: "tabular-nums" }}>{stats.tickSec}</span>μs
             </span>
             <span
               title="Total linear memory allocated to the WebAssembly instance. This is the sandboxed memory space where all Rust data lives."
