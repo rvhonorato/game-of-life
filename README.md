@@ -62,7 +62,7 @@ This started as a way to learn Rust and WebAssembly following the [Rust and WebA
 
 ## AI Disclosure
 
-[Anthropic Claude](https://claude.ai) was used for code review during the development of this project.
+[Anthropic Claude](https://claude.ai) was used _only_ for code review during the development of this project, the code was written by me.
 
 ## License
 
