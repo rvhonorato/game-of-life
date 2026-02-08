@@ -58,7 +58,7 @@ cd ../wasm && cargo clippy  # Rust lint
 
 ## Background
 
-This started as a way to learn Rust and WebAssembly following the [Rust and WebAssembly tutorial](https://rustwasm.github.io/docs/book/game-of-life/introduction.html). I extended it with a React frontend, real-time WASM stats, and a visual grid renderer. See [TODO.md](./TODO.md) for ideas on where to take it next — direct memory access, bit packing, SIMD, Web Workers, and more.
+This started as a way to learn Rust and WebAssembly following the [Rust and WebAssembly tutorial](https://rustwasm.github.io/docs/book/game-of-life/introduction.html). I extended it with a React frontend, real-time WASM stats, and a visual grid renderer. Future possibilities include bit-packing, SIMD, Web Workers, and direct memory access.
 
 ## AI Disclosure
 
