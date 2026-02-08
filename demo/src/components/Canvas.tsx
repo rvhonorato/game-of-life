@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 interface Stats {
   alive: number;
   density: string;
-  tickMs: string;
+  tickSec: string;
   wasmMemory: string;
   cellsPtr: string;
   cellBytes: number;
@@ -47,7 +47,7 @@ export const Canvas = () => {
       setStats({
         alive,
         density: ((alive / total) * 100).toFixed(1),
-        tickMs: tickMs.toFixed(2),
+        tickSec: (tickMs * 1000).toFixed(1),
         wasmMemory: (memBytes / 1024).toFixed(0),
         cellsPtr: "0x" + (u.cells() as unknown as number).toString(16),
         cellBytes: u.cell_bytes(),
@@ -116,7 +116,7 @@ export const Canvas = () => {
         {[...row].map((ch, ci) => (
           <div
             key={ci}
-            className="size-2"
+            className="size-1 md:size-1.5 lg:size-2"
             style={{
               backgroundColor:
                 ch === "1" ? "var(--text-primary)" : "var(--bg-secondary)",
@@ -183,7 +183,7 @@ export const Canvas = () => {
             e.currentTarget.style.color = "var(--text-secondary)";
           }}
           onClick={handleRestart}
-          disabled={!universe}
+          disabled={!universe || isPlaying}
         >
           Restart
         </button>
@@ -211,16 +211,29 @@ export const Canvas = () => {
             className="font-mono text-xs flex flex-wrap justify-center gap-x-4 gap-y-1 max-w-lg"
             style={{ color: "var(--text-secondary)" }}
           >
-          <span>
-            Grid: {stats.gridSize} ({stats.alive.toLocaleString()}/
-            {(universe?.width() ?? 0) * (universe?.height() ?? 0)} alive,{" "}
-            {stats.density}%)
-          </span>
-          <span>Tick: {stats.tickMs}ms</span>
-          <span>WASM mem: {stats.wasmMemory}KB</span>
-          <span>
-            Cells: {stats.cellBytes.toLocaleString()}B @ {stats.cellsPtr}
-          </span>
+            <span>
+              Grid: {stats.gridSize} ({stats.alive.toLocaleString()}/
+              {(universe?.width() ?? 0) * (universe?.height() ?? 0)} alive,{" "}
+              {stats.density}%)
+            </span>
+            <span
+              title="Time for the WASM module to compute one generation. This runs as compiled Rust in your browser."
+              className="cursor-help underline decoration-dotted"
+            >
+              Step time: {stats.tickSec}μs
+            </span>
+            <span
+              title="Total linear memory allocated to the WebAssembly instance. This is the sandboxed memory space where all Rust data lives."
+              className="cursor-help underline decoration-dotted"
+            >
+              WASM mem: {stats.wasmMemory}KB
+            </span>
+            <span
+              title="Size of the cell array in bytes and its raw pointer address in WASM linear memory. Each cell is a u8 (1 byte): 0 = dead, 1 = alive."
+              className="cursor-help underline decoration-dotted"
+            >
+              Cells: {stats.cellBytes.toLocaleString()}B @ {stats.cellsPtr}
+            </span>
           </div>
         </div>
       )}
