@@ -120,6 +120,14 @@ impl Universe {
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
     }
+
+    pub fn live_count(&self) -> u32 {
+        self.cells.iter().filter(|&&c| c == Cell::Alive).count() as u32
+    }
+
+    pub fn cell_bytes(&self) -> u32 {
+        (self.cells.len() * std::mem::size_of::<Cell>()) as u32
+    }
 }
 
 #[allow(clippy::write_with_newline)]
@@ -127,7 +135,7 @@ impl fmt::Display for Universe {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for line in self.cells.as_slice().chunks(self.width as usize) {
             for &cell in line {
-                let symbol = if cell == Cell::Dead { '⬜' } else { '⬛' };
+                let symbol = if cell == Cell::Dead { '0' } else { '1' };
                 write!(f, "{}", symbol)?;
             }
             write!(f, "\n")?;
