@@ -1,8 +1,18 @@
 [package]
 name = "wasm-game-of-life"
 version = "0.1.0"
-authors = ["Rodrigo V. Honorato <r.vargashonorato@uu.nl>"]
+authors = ["Rodrigo V. Honorato <rvhonorato@pm.me>"]
 edition = "2018"
+description = "Conway's Game of Life implemented in Rust, compiled to WebAssembly"
+repository = "https://github.com/rvhonorato/game-of-life"
+license = "Unlicense"
+keywords = [
+  "game-of-life",
+  "webassembly",
+  "wasm",
+  "cellular-automata",
+  "simulation",
+]
 
 [lib]
 crate-type = ["cdylib", "rlib"]

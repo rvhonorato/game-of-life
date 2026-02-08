@@ -1,10 +1,10 @@
-# Conway's Game of Life
+# Rust/WASM Conway's Game of Life
 
-![banner](assets/banner.png)
+[![banner](assets/banner.png)](https://rvhonorato.me/game-of-life)
 
-[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) — game logic in Rust compiled to WebAssembly, frontend in React + TypeScript.
+This project contains [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented in Rust and compiled to WebAssembly, frontend in React + TypeScript.
 
-**[Live demo](https://rvhonorato.me/game-of-life)**
+### See the **[Live demo](https://rvhonorato.me/game-of-life)**
 
 ## Overview
 

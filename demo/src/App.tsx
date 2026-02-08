@@ -86,7 +86,22 @@ function App() {
           borderColor: "var(--border-color)",
         }}
       >
-        Built by Rodrigo V Honorato. Public domain (Unlicense).
+        Built by{" "}
+        <a
+          href="https://rvhonorato.me"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--link-color)" }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.color = "var(--link-hover)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.color = "var(--link-color)")
+          }
+        >
+          Rodrigo V Honorato
+        </a>
+        . Public domain (Unlicense).
       </footer>
     </div>
   );
