@@ -62,7 +62,7 @@ This started as a way to learn Rust and WebAssembly following the [Rust and WebA
 
 ## AI Disclosure
 
-[GitHub Copilot](https://github.com/features/copilot) and [Anthropic Claude](https://claude.ai) were used for code review during the development of this project.
+[Anthropic Claude](https://claude.ai) was used for code review during the development of this project.
 
 ## License
 
